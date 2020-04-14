@@ -3,12 +3,11 @@ from datetime import date
 
 class Sale:
 
-    def calculate_discount(self, customer, amount):
+    def calculate_discount(self, customer):
         # Business rules:
         # 1. On your birthday you get 10% discount
         # 2. If you are a pensioner (older than 62) you get 15% discount
         # 3. You get maximum of birthday and pensioner discount
-        # 4. Discounts only on sales of R100 or more
 
         # First lets see if it is the customer's birthday
         today = date.today()
@@ -33,12 +32,11 @@ class Sale:
 
         # Now we can calculate the discount
         discount = 0
-        if amount >= 100:
-            if is_birthday:
-                discount = amount * 0.1
-            if is_pensioner:
-                discount = amount * 0.15
-            if is_pensioner and is_birthday:
-                discount = amount * max(0.15, 0.1)
+        if is_birthday:
+            discount = 0.1
+        if is_pensioner:
+            discount = 0.15
+        if is_pensioner and is_birthday:
+            discount = max(0.15, 0.1)
 
         return discount

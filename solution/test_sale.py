@@ -5,45 +5,37 @@ from .customer import Customer
 
 class TestSale:
 
-    def test_calculate_discount_customer_not_pensioner_not_birthday_large_sale_zero_discount(self):
+    def test_calculate_discount_customer_not_pensioner_not_birthday_zero_discount(self):
         # Arrange
         customer = customer = Customer("Paul", datetime.datetime(1981, 4, 12))
         sale = Sale()
 
         # Act
-        result = sale.caalculate_discount(customer, 1000)
+        result = sale.calculate_discount(customer)
 
         # Assert
         assert result == 0
 
-    def test_calculate_discount_small_sale_zero_discount(self):
+    def test_calculate_discount_customer_pensioner_not_birthday_pensioner_discount(self):
         customer = customer = Customer("Paul", datetime.datetime(1951, 4, 12))
         sale = Sale()
 
-        result = sale.calculate_discount(customer, 10)
+        result = sale.calculate_discount(customer)
 
-        assert result == 0
+        assert result == 0.15
 
-    def test_calculate_discount_customer_pensioner_not_birthday_large_sale_pensioner_discount(self):
-        customer = customer = Customer("Paul", datetime.datetime(1951, 4, 12))
-        sale = Sale()
-
-        result = sale.calculate_discount(customer, 1000)
-
-        assert result == 150
-
-    def test_calculate_discount_customer_pensioner_birthday_large_sale_pensioner_discount(self):
+    def test_calculate_discount_customer_pensioner_birthday_pensioner_discount(self):
         customer = customer = Customer("Paul", datetime.datetime(1951, 4, 13))
         sale = Sale()
 
-        result = sale.calculate_discount(customer, 1000)
+        result = sale.calculate_discount(customer)
 
-        assert result == 150
+        assert result == 0.15
 
-    def test_calculate_discount_customer_not_pensioner_birthday_large_sale_birthday_discount(self):
+    def test_calculate_discount_customer_not_pensioner_birthday_birthday_discount(self):
         customer = customer = Customer("Paul", datetime.datetime(1981, 4, 14))
         sale = Sale()
 
-        result = sale.calculate_discount(customer, 1000)
+        result = sale.calculate_discount(customer)
 
-        assert result == 100
+        assert result == 0.1

@@ -1,17 +1,13 @@
 from datetime import date
+from .discount_policy import DiscountPolicy
 
 
 class Sale:
 
-    def calculate_discount(self, customer, amount):
+    def calculate_discount(self, customer):
+        policy = DiscountPolicy()
         is_birthday = customer.is_birthday()
         is_pensioner = customer.is_pensioner()
-        if amount < 100:
-            return 0
-        if is_pensioner and is_birthday:
-            return amount * max(0.15, 0.1)
-        if is_birthday:
-            return amount * 0.1
-        if is_pensioner:
-            return amount * 0.15
-        return 0
+        birthday_discount = is_birthday*policy.birthday_discount
+        pensioner_discount = is_pensioner*policy.pensioner_discount
+        return max(birthday_discount, pensioner_discount)
