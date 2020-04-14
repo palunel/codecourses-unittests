@@ -1,6 +1,6 @@
 import datetime
-from sale import Sale
-from customer import Customer
+from .sale import Sale
+from .customer import Customer
 
 
 class TestSale:
@@ -11,7 +11,7 @@ class TestSale:
         sale = Sale()
 
         # Act
-        result = sale.calculate_discount(customer, 1000)
+        result = sale.caalculate_discount(customer, 1000)
 
         # Assert
         assert result == 0
@@ -41,7 +41,7 @@ class TestSale:
         assert result == 150
 
     def test_calculate_discount_customer_not_pensioner_birthday_large_sale_birthday_discount(self):
-        customer = customer = Customer("Paul", datetime.datetime(1981, 4, 13))
+        customer = customer = Customer("Paul", datetime.datetime(1981, 4, 14))
         sale = Sale()
 
         result = sale.calculate_discount(customer, 1000)
